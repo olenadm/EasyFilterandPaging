@@ -18,21 +18,21 @@ function App() {
   const [lastPage, setLastPage] = useState(0);
   const perPage = 8;
 
-  const getDataFromAPI = async () => {
-    const res = await axios.get(
-      "https://api.slingacademy.com/v1/sample-data/photos?offset=5&limit=30"
-    );
-
-    console.log(res.data);
-
-    setPhotos(res.data.photos);
-    //setFilteredPhotos(res.data.photos);
-    setFilteredPhotos(res.data.photos.slice(0, filters.page * perPage));
-
-    setLastPage(Math.ceil(res.data.photos.length / perPage));
-  };
-
   useEffect(() => {
+    const getDataFromAPI = async () => {
+      const res = await axios.get(
+        "https://api.slingacademy.com/v1/sample-data/photos?offset=5&limit=30"
+      );
+
+      console.log(res.data);
+
+      setPhotos(res.data.photos);
+      //setFilteredPhotos(res.data.photos);
+      setFilteredPhotos(res.data.photos.slice(0, filters.page * perPage));
+
+      setLastPage(Math.ceil(res.data.photos.length / perPage));
+    };
+
     getDataFromAPI();
   }, []);
 

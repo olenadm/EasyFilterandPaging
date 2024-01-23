@@ -44,7 +44,7 @@ const Item = (props: {
 
   let button;
 
-  if (props.filters.page != props.lastPage) {
+  if (props.filters.page !== props.lastPage) {
     button = (
       <div className="btn-wrap">
         <button className="btn" onClick={load}>
