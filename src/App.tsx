@@ -40,8 +40,8 @@ function App() {
   useEffect(() => {
     let items = photos.filter(
       (p: any) =>
-        p.title.toLowerCase().indexOf(filters.s.toLowerCase()) >= 0 ||
-        p.description.toLowerCase().indexOf(filters.s.toLowerCase()) >= 0
+        p.title.toLowerCase().indexOf(filters.s.toLowerCase()) >= 0 
+       // || p.description.toLowerCase().indexOf(filters.s.toLowerCase()) >= 0
     );
 
     console.log(filters.page * perPage);
