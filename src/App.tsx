@@ -46,6 +46,32 @@ function App() {
       // || p.description.toLowerCase().indexOf(filters.s.toLowerCase()) >= 0
     );
 
+    if (filters.sort === "asc") {
+      items.sort((a: any, b: any) => {
+        if (a.id > b.id) {
+          return 1;
+        }
+
+        if (a.id < b.id) {
+          return -1;
+        }
+
+        return 0;
+      });
+    } else if (filters.sort === "desc") {
+      items.sort((a: any, b: any) => {
+        if (a.id > b.id) {
+          return -1;
+        }
+
+        if (a.id < b.id) {
+          return 1;
+        }
+
+        return 0;
+      });
+    }
+
     console.log(filters.page * perPage);
     if (items.length) {
       setIsLoading(false);
