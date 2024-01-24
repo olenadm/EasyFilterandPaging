@@ -8,6 +8,7 @@ import { Filters } from "./models/filters";
 function App() {
   const [photos, setPhotos] = useState([]);
   const [filteredPhotos, setFilteredPhotos] = useState<ItemImg[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   //filter stuff
   const [filters, setFilters] = useState<Filters>({
@@ -16,7 +17,7 @@ function App() {
     page: 1,
   });
   const [lastPage, setLastPage] = useState(0);
-  const perPage = 8;
+  const perPage = 10;
 
   useEffect(() => {
     const getDataFromAPI = async () => {
@@ -24,7 +25,9 @@ function App() {
         "https://api.slingacademy.com/v1/sample-data/photos?offset=5&limit=30"
       );
 
-      console.log(res.data);
+      if (res.data.photos.length > 0) {
+        setIsLoading(false);
+      }
 
       setPhotos(res.data.photos);
       //setFilteredPhotos(res.data.photos);
@@ -34,20 +37,22 @@ function App() {
     };
 
     getDataFromAPI();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   //filtered data here
   useEffect(() => {
     let items = photos.filter(
-      (p: any) =>
-        p.title.toLowerCase().indexOf(filters.s.toLowerCase()) >= 0 
-       // || p.description.toLowerCase().indexOf(filters.s.toLowerCase()) >= 0
+      (p: any) => p.title.toLowerCase().indexOf(filters.s.toLowerCase()) >= 0
+      // || p.description.toLowerCase().indexOf(filters.s.toLowerCase()) >= 0
     );
 
     console.log(filters.page * perPage);
+    if (items.length) {
+      setIsLoading(false);
+    }
     setLastPage(Math.ceil(items.length / perPage));
     setFilteredPhotos(items.slice(0, filters.page * perPage));
-  }, [filters]);
+  }, [filters]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="App">
@@ -58,6 +63,7 @@ function App() {
           filters={filters}
           setFilters={setFilters}
           lastPage={lastPage}
+          isLoading={isLoading}
         />
       </header>
     </div>

@@ -7,6 +7,7 @@ const Item = (props: {
   filters: Filters;
   setFilters: (filters: Filters) => void;
   lastPage: number;
+  isLoading:boolean;
 }) => {
   const [selected, setSelected] = useState<number[]>([]);
 
@@ -44,7 +45,7 @@ const Item = (props: {
 
   let button;
 
-  if (props.filters.page !== props.lastPage) {
+  if (!props.isLoading && props.filters.page !== props.lastPage) {
     button = (
       <div className="btn-wrap">
         <button className="btn" onClick={load}>
