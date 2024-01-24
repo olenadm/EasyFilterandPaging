@@ -83,7 +83,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Easy Filtering</h1>
+        <h1><div>Easy Filtering and Loading</div> <span className="App-logo">*</span></h1>
         <Item
           items={filteredPhotos}
           filters={filters}
